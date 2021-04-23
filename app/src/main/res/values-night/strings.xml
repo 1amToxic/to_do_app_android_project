@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_add_task">Add Task</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="tag">Tag</string>
+    <string name="fab_content">Done</string>
+    <string name="date">Date</string>
+    <string name="text_greeting">Easy to work with To Do For Dev</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+</resources>

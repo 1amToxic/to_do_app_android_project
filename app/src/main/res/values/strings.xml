@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">ToDoApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_add_task">Add Task</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="tag">Tag</string>
+    <string name="fab_content">Done</string>
+    <string name="date">Date</string>
+    <string name="text_greeting">Best place for saving and arrange your work</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+</resources>
