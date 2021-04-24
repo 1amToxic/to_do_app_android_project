@@ -1,13 +1,13 @@
-package project.android.todoapp.repository.database
+package project.android.todoapp.storage.database
 
 import android.content.Context
 import androidx.room.*
 import project.android.todoapp.model.Account
 import project.android.todoapp.model.Project
 import project.android.todoapp.model.Task
-import project.android.todoapp.repository.dao.AccountDao
-import project.android.todoapp.repository.dao.ProjectDao
-import project.android.todoapp.repository.dao.TaskDao
+import project.android.todoapp.storage.dao.AccountDao
+import project.android.todoapp.storage.dao.ProjectDao
+import project.android.todoapp.storage.dao.TaskDao
 import project.android.todoapp.utils.Converters
 
 @Database(entities = [Account::class, Project::class, Task::class],version = 1,exportSchema = false)

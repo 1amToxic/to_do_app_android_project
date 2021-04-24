@@ -6,34 +6,34 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import project.android.todoapp.databinding.ItemTaskBinding
-import project.android.todoapp.ui.main.main_screen.model.Task
+import project.android.todoapp.ui.main.main_screen.model.TaskUI
 import project.android.todoapp.utils.DateStringConverter
 
-class TaskAdapter : ListAdapter<Task, TaskAdapter.TaskViewHolder>(DiffUtilCallback()) {
+class TaskAdapter : ListAdapter<TaskUI, TaskAdapter.TaskViewHolder>(DiffUtilCallback()) {
     private lateinit var binding: ItemTaskBinding
 
     class TaskViewHolder(private val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(task: Task) {
+        fun bind(taskUI: TaskUI) {
             itemView.post {
-                binding.textTaskTitle.text = task.title
-                binding.textContentItemTask.text = task.content
-                task.date?.let {
+                binding.textTaskTitle.text = taskUI.title
+                binding.textContentItemTask.text = taskUI.content
+                taskUI.date?.let {
                     binding.textTimeItemTask.text = DateStringConverter.dateToString(it)
                 }
-                binding.taskTagColor.setImageResource(task.tag.resId)
-                binding.taskTagDescription.text = task.tag.description
+                binding.taskTagColor.setImageResource(taskUI.tag.resId)
+                binding.taskTagDescription.text = taskUI.tag.description
             }
         }
 
     }
 
-    class DiffUtilCallback : DiffUtil.ItemCallback<Task>() {
-        override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
+    class DiffUtilCallback : DiffUtil.ItemCallback<TaskUI>() {
+        override fun areItemsTheSame(oldItem: TaskUI, newItem: TaskUI): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
+        override fun areContentsTheSame(oldItem: TaskUI, newItem: TaskUI): Boolean {
             return oldItem == newItem
         }
 

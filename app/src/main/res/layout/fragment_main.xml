@@ -25,6 +25,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/text_percent_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_10dp"
+            android:text="25%"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_app_name" />
+
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/linear_progress_bar"
             android:layout_width="match_parent"
@@ -35,11 +46,12 @@
             android:progress="60"
             app:indicatorColor="#82b3ff"
             app:indicatorDirectionLinear="startToEnd"
-            app:layout_constraintTop_toBottomOf="@id/text_app_name"
+            app:layout_constraintTop_toBottomOf="@id/text_percent_complete"
             app:trackColor="#3e5c69"
             app:trackThickness="@dimen/size_5dp" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginStart="@dimen/size_10dp"
             android:id="@+id/recycler_task"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -60,6 +72,8 @@
         android:layout_gravity="bottom"
         android:backgroundTint="@color/color_bottom_appbar"
         app:hideOnScroll="true"
+        app:fabCradleMargin="@dimen/size_10dp"
+        app:fabCradleRoundedCornerRadius="@dimen/size_20dp"
         app:menu="@menu/bottom_app_bar"
         app:navigationIcon="@drawable/ic_baseline_menu_24" />
 

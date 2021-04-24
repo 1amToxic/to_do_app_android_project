@@ -1,4 +1,4 @@
-package project.android.todoapp.repository.dao
+package project.android.todoapp.storage.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

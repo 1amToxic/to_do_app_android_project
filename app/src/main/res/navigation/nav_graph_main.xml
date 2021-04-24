@@ -9,5 +9,18 @@
         android:id="@+id/mainFragment"
         android:name="project.android.todoapp.ui.main.main_screen.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_fragmentAddTask"
+            app:destination="@id/fragmentAddTask"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentAddTask"
+        android:name="project.android.todoapp.ui.main.add_task.FragmentAddTask"
+        android:label="fragment_add_task"
+        tools:layout="@layout/fragment_add_task" />
 </navigation>

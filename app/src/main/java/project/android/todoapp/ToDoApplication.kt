@@ -2,11 +2,15 @@ package project.android.todoapp
 
 import android.app.Application
 import android.util.Log
+import project.android.todoapp.storage.database.AppDatabase
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
 
 class ToDoApplication : Application() {
+    companion object{
+        lateinit var todoDb : AppDatabase
+    }
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG) {
@@ -14,6 +18,7 @@ class ToDoApplication : Application() {
         } else {
             Timber.plant(ReleaseTree())
         }
+        todoDb = AppDatabase.getDatabase(applicationContext)
     }
 }
 
