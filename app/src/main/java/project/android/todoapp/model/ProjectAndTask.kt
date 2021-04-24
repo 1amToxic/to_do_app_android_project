@@ -9,5 +9,5 @@ data class ProjectAndTask(
         parentColumn = "id",
         entityColumn = "project_id"
     )
-    val task : Task
+    val listTask : List<Task>
 )
