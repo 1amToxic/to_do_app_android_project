@@ -12,4 +12,21 @@
     <color name="color_text_add_task">#507393</color>
     <color name="border_edit_text">#507393</color>
     <color name="btn_login_color">#3b00f1</color>
+    <color name="color_login">#3c00f3</color>
+    <color name="color_bottom_appbar">#214457</color>
+    <color name="background_main">#073042</color>
+    <color name="item_task_color">#1e4353</color>
+    <color name="pink">#e609de</color>
+    <color name="red">#e60909</color>
+    <color name="indigo">#0d09e6</color>
+    <color name="blue">#3163e0</color>
+    <color name="blue500">#0ee3ae</color>
+    <color name="teal">#FF03DAC5</color>
+    <color name="green">#0af57f</color>
+    <color name="lime">#0af535</color>
+    <color name="yellow">#f5f10a</color>
+    <color name="orange">#f5ab0a</color>
+    <color name="deep_orange400">#bd8408</color>
+    <color name="brown">#63490f</color>
+    <color name="amber">#e80e91</color>
 </resources>

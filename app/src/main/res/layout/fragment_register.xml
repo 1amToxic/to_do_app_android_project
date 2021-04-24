@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.authentication.login.LoginFragment">
+    tools:context=".ui.authentication.sign_up.RegisterFragment">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lav_login"
+        android:id="@+id/lav_register"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_marginStart="0dp"
@@ -21,7 +21,7 @@
         app:lottie_loop="true" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_email_login"
+        android:id="@+id/layout_email_register"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size50dp"
@@ -30,20 +30,20 @@
         android:layout_marginEnd="@dimen/size50dp"
         android:hint="@string/email"
         android:textColorHint="@color/color_login"
-        app:layout_constraintTop_toBottomOf="@id/lav_login"
+        app:layout_constraintTop_toBottomOf="@id/lav_register"
         app:startIconContentDescription="@string/email"
         app:startIconDrawable="@drawable/ic_baseline_email_24"
         app:startIconTint="@color/color_login">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_email_login"
+            android:id="@+id/edt_email_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_password_login"
+        android:id="@+id/layout_password_register"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size50dp"
@@ -54,20 +54,44 @@
         android:textColorHint="@color/color_login"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/color_login"
-        app:layout_constraintTop_toBottomOf="@id/layout_email_login"
+        app:layout_constraintTop_toBottomOf="@id/layout_email_register"
         app:startIconContentDescription="@string/password"
         app:startIconDrawable="@drawable/ic_baseline_lock_24"
         app:startIconTint="@color/color_login">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_password_login"
+            android:id="@+id/edt_password_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_password_cf_register"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size50dp"
+        android:layout_marginStart="@dimen/size50dp"
+        android:layout_marginTop="@dimen/size_20dp"
+        android:layout_marginEnd="@dimen/size50dp"
+        android:hint="@string/password"
+        android:textColorHint="@color/color_login"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/color_login"
+        app:layout_constraintTop_toBottomOf="@id/layout_password_register"
+        app:startIconContentDescription="@string/password"
+        app:startIconDrawable="@drawable/ic_baseline_lock_24"
+        app:startIconTint="@color/color_login">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_password_cf_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_login_login"
+        android:id="@+id/btn_login_register"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size50dp"
@@ -76,15 +100,15 @@
         android:layout_marginEnd="@dimen/size50dp"
         android:backgroundTint="@color/btn_login_color"
         android:fontFamily="sans-serif-medium"
-        android:text="@string/login"
+        android:text="@string/register"
         android:textColor="@color/white"
         app:cornerRadius="@dimen/size_5dp"
-        app:layout_constraintTop_toBottomOf="@id/layout_password_login" />
+        app:layout_constraintTop_toBottomOf="@id/layout_password_cf_register" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/btn_login_login">
+        app:layout_constraintTop_toBottomOf="@id/btn_login_register">
 
         <TextView
             android:id="@+id/text_or_sign_in_with"
@@ -131,16 +155,4 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tv_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/size_20dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/dont_have_account"
-        android:textSize="@dimen/size_16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

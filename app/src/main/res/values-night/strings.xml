@@ -9,4 +9,14 @@
     <string name="text_greeting">Easy to work with To Do For Dev</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="or_sign_in_with">Or sign in with</string>
+    <string name="dont_have_account">Don\'t have an account? Sign up</string>
+    <string name="content_description_search">Search</string>
+    <string name="search">Search</string>
+    <string name="more">More</string>
+    <string name="content_description_more">More</string>
+    <string name="work_progress">Work Progress</string>
+    <string name="random_text">Random</string>
 </resources>

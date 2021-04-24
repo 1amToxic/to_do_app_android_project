@@ -10,8 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ToDoApp">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ui.authentication.AuthenticationActivity">
+        <activity android:name=".ui.authentication.AuthenticationActivity"></activity>
+
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
