@@ -19,4 +19,5 @@
     <string name="content_description_more">More</string>
     <string name="work_progress">Work Progress</string>
     <string name="random_text">Random</string>
+    <string name="text_edit_task">Edit Task</string>
 </resources>

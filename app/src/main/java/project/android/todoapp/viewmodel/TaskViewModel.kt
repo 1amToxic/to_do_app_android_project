@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import project.android.todoapp.model.Tag
 import project.android.todoapp.model.Task
+import project.android.todoapp.model.TaskState
 import project.android.todoapp.repository.TaskRepository
 import project.android.todoapp.ui.main.main_screen.model.TaskUI
+import java.util.*
 
 class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
     private var listDisplayM = MutableLiveData<List<TaskUI>>()
@@ -18,6 +21,14 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
     private var listAllTaskOfProjectM = MutableLiveData<List<Task>>()
     val listAllTaskOfProject : LiveData<List<TaskUI>> get() = listAllTaskM
     val numberTaskCompleteM : LiveData<Int>? = null
+    private var taskDetailDisplayM = MutableLiveData<TaskUI>()
+    val taskDetailDisplay : LiveData<TaskUI> get() = taskDetailDisplayM
+
+    init {
+    }
+    fun setTaskDetailDisplay(taskUI : TaskUI){
+        taskDetailDisplayM.postValue(taskUI)
+    }
     fun insertTask(task : Task){
         viewModelScope.launch(Dispatchers.IO) {
             taskRepository.insertTask(task)
@@ -34,19 +45,31 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
         }
     }
     fun getAllTask(){
-        viewModelScope.launch(Dispatchers.IO) {
-            listAllTaskM?.postValue(taskRepository.getAllTask().value?.map {
-                TaskUI(
-                    id = it.id,
-                    content = it.description,
-                    date = it.deadline,
-                    status = it.state,
-                    tag =  it.tag,
-                    title = it.title
-                )
-            })
-            listDisplayM?.postValue(listAllTask.value)
-        }
+        listAllTaskM.postValue(mutableListOf(
+            TaskUI(1,"Code Complete ToDoApp",Tag.KOTLIN_NATIVE,"Android Code", TaskState.DONE,Date()),
+            TaskUI(2,"Code Complete ToDoApp",Tag.KOTLIN_JS,"Android Code", TaskState.DONE,Date()),
+            TaskUI(3,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
+            TaskUI(4,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
+            TaskUI(5,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
+            TaskUI(6,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
+            TaskUI(7,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
+            TaskUI(7,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
+            TaskUI(7,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date())
+        ))
+        listDisplayM.postValue(listAllTask.value)
+//        viewModelScope.launch(Dispatchers.IO) {
+//            listAllTaskM?.postValue(taskRepository.getAllTask().value?.map {
+//                TaskUI(
+//                    id = it.id,
+//                    content = it.description,
+//                    date = it.deadline,
+//                    status = it.state,
+//                    tag =  it.tag,
+//                    title = it.title
+//                )
+//            })
+//            listDisplayM?.postValue(listAllTask.value)
+//        }
     }
     suspend fun getAllTaskOfProject(projectID : Int) {
         viewModelScope.launch(Dispatchers.IO) {
