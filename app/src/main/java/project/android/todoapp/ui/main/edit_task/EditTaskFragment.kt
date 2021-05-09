@@ -76,7 +76,9 @@ class EditTaskFragment : Fragment() {
             }
             .setNegativeButton(resources.getString(R.string.No)){
                 _,_ ->
-                
+                /**
+                 * Dismiss Alert Dialog
+                 */
             }
             .create()
             .show()
