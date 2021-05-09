@@ -24,5 +24,7 @@
     <string name="text_edit_task">Edit Task</string>
     <string name="project">Project</string>
     <string name="deadline">Deadline</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
 
 </resources>
