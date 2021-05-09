@@ -9,7 +9,7 @@ object DateStringConverter {
     @SuppressLint("SimpleDateFormat")
     fun stringToDate(s : String) : Date?{
         var date : Date? = null
-        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm")
         try {
              date = format.parse(s)
         } catch (e: ParseException) {
@@ -21,7 +21,7 @@ object DateStringConverter {
     fun dateToString(date: Date) : String{
         var dateTime : String? = null
         val dateFormat =
-            SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            SimpleDateFormat("yyyy-MM-dd HH:mm")
         try {
              dateTime = dateFormat.format(date)
         } catch (e: ParseException) {

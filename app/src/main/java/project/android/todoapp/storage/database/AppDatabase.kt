@@ -10,7 +10,7 @@ import project.android.todoapp.storage.dao.ProjectDao
 import project.android.todoapp.storage.dao.TaskDao
 import project.android.todoapp.utils.Converters
 
-@Database(entities = [Account::class, Project::class, Task::class],version = 1,exportSchema = false)
+@Database(entities = [Account::class, Project::class, Task::class],version = 2,exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase(){
     abstract fun accountDao() : AccountDao

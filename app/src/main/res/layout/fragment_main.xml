@@ -51,12 +51,12 @@
             app:trackThickness="@dimen/size_5dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginStart="@dimen/size_10dp"
-            android:scrollbars="vertical"
             android:id="@+id/recycler_task"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/size_5dp"
             android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginEnd="@dimen/size_5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,9 +72,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:backgroundTint="@color/color_bottom_appbar"
-        app:hideOnScroll="true"
         app:fabCradleMargin="@dimen/size_10dp"
         app:fabCradleRoundedCornerRadius="@dimen/size_20dp"
+        app:hideOnScroll="true"
         app:menu="@menu/bottom_app_bar"
         app:navigationIcon="@drawable/ic_baseline_menu_24" />
 

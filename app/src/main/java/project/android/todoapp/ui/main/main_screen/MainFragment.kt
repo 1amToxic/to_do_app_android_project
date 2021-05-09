@@ -41,6 +41,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Timber.d("OnCreateView")
         // Inflate the layout for this fragment
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         setListeners()
@@ -59,6 +60,7 @@ class MainFragment : Fragment() {
     private fun setUI() {
         taskViewModel.getAllTask()
         taskViewModel.listAllTask.observe(viewLifecycleOwner, Observer {
+            Timber.d("Update View")
             adapterTask.submitList(it)
         })
     }

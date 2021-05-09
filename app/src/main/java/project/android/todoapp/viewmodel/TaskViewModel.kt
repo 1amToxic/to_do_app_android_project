@@ -11,6 +11,7 @@ import project.android.todoapp.model.Task
 import project.android.todoapp.model.TaskState
 import project.android.todoapp.repository.TaskRepository
 import project.android.todoapp.ui.main.main_screen.model.TaskUI
+import timber.log.Timber
 import java.util.*
 
 class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
@@ -45,6 +46,7 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
         }
     }
     fun getAllTask(){
+        Timber.d("Go Here ${listAllTask.value == null}")
         listAllTaskM.postValue(mutableListOf(
             TaskUI(1,"Code Complete ToDoApp",Tag.KOTLIN_NATIVE,"Android Code", TaskState.DONE,Date()),
             TaskUI(2,"Code Complete ToDoApp",Tag.KOTLIN_JS,"Android Code", TaskState.DONE,Date()),
@@ -53,10 +55,12 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
             TaskUI(5,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
             TaskUI(6,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
             TaskUI(7,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
-            TaskUI(7,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
-            TaskUI(7,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date())
+            TaskUI(8,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
+            TaskUI(79,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date())
         ))
         listDisplayM.postValue(listAllTask.value)
+//        Timber.d("Come to GetAllTask ${listAllTaskM.value!!.size}")
+
 //        viewModelScope.launch(Dispatchers.IO) {
 //            listAllTaskM?.postValue(taskRepository.getAllTask().value?.map {
 //                TaskUI(

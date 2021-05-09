@@ -20,4 +20,6 @@
     <string name="work_progress">Work Progress</string>
     <string name="random_text">Random</string>
     <string name="text_edit_task">Edit Task</string>
+    <string name="project">Project</string>
+    <string name="deadline">Deadline</string>
 </resources>
