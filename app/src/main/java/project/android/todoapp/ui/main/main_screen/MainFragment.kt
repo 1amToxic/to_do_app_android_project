@@ -52,9 +52,9 @@ class MainFragment : Fragment() {
     }
 
     private fun setBehaviors() {
-        val p : CoordinatorLayout.LayoutParams = binding.btnAddTask.layoutParams as CoordinatorLayout.LayoutParams
-        p.behavior = context?.let { FloatingActionButtonScrollBehavior(it) }
-        binding.btnAddTask.layoutParams = p
+//        val p : CoordinatorLayout.LayoutParams = binding.btnAddTask.layoutParams as CoordinatorLayout.LayoutParams
+//        p.behavior = context?.let { FloatingActionButtonScrollBehavior(it) }
+//        binding.btnAddTask.layoutParams = p
     }
 
     private fun setUI() {
@@ -82,19 +82,17 @@ class MainFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.btnAddTask.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_fragmentAddTask)
-        }
-        binding.bottomAppBar.setNavigationOnClickListener {
-
-        }
+//        binding.btnAddTask.setOnClickListener {
+//            findNavController().navigate(R.id.action_mainFragment_to_fragmentAddTask)
+//        }
+//        binding.bottomAppBar.setNavigationOnClickListener {
+//
+//        }
 //        binding.bottomAppBar.setOnMenuItemClickListener{
 //
 //        }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+
 
 }

@@ -85,6 +85,7 @@
             app:layout_constraintTop_toBottomOf="@id/layout_tag" />
 
         <TextView
+            android:layout_marginEnd="@dimen/margin_10dp"
             android:id="@+id/text_time_item_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
