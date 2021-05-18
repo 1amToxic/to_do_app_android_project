@@ -26,10 +26,11 @@ class MainActivity : AppCompatActivity() {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_main) as NavHostFragment
         navController = navHostFragment.navController
+        setBehaviors()
         setSupportActionBar(binding.bottomAppBar)
         setNavigation()
         setListeners()
-        setBehaviors()
+
     }
 
     private fun setBehaviors() {
@@ -50,11 +51,11 @@ class MainActivity : AppCompatActivity() {
             when(destination.id){
                 R.id.mainFragment ->{
                     binding.bottomAppBar.visibility = View.VISIBLE
-                    binding.btnAddTask.visibility = View.VISIBLE
+                    binding.btnAddTask.show()
                 }
                 else ->{
                     binding.bottomAppBar.visibility = View.GONE
-                    binding.btnAddTask.visibility = View.GONE
+                    binding.btnAddTask.hide()
                 }
             }
         }
