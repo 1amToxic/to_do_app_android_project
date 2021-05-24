@@ -56,7 +56,7 @@ class EditTaskFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.editTaskName.isFocusable = true
+        binding.editTaskName.requestFocus()
         binding.editTaskDate.setOnClickListener {
             showDatePicker()
         }

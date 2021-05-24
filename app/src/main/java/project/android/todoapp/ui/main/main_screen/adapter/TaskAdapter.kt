@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import project.android.todoapp.databinding.ItemTaskBinding
 import project.android.todoapp.ui.main.main_screen.model.TaskUI
 import project.android.todoapp.utils.DateStringConverter
+import timber.log.Timber
 
 class TaskAdapter(private val onClickItem: (TaskUI) -> Unit) :
     ListAdapter<TaskUI, TaskAdapter.TaskViewHolder>(DiffUtilCallback()) {
@@ -24,6 +25,7 @@ class TaskAdapter(private val onClickItem: (TaskUI) -> Unit) :
                 taskUI.date?.let {
                     binding.textTimeItemTask.text = DateStringConverter.dateToString(it)
                 }
+                Timber.d("Logcat ${taskUI.tag}")
                 binding.taskTagColor.setColorFilter(ContextCompat.getColor(binding.root.context, taskUI.tag.resId))
                 binding.taskTagDescription.text = taskUI.tag.description
             }

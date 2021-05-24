@@ -12,9 +12,9 @@ interface TaskDao {
     @Delete
     suspend fun deleteTask(task: Task)
     @Query("SELECT * FROM task")
-    fun getAllTask() : LiveData<List<Task>>
+    fun getAllTask() : List<Task>
     @Query("SELECT * FROM task WHERE project_id = :projectID")
-    fun getAllTaskOfProject(projectID : Int) : LiveData<List<Task>>
+    fun getAllTaskOfProject(projectID : Int) : List<Task>
     @Query("SELECT COUNT(id) FROM task WHERE state = :state")
     suspend fun getAllTaskWithState(state : String) : Int
 }

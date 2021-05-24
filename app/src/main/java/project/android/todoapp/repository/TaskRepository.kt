@@ -14,9 +14,9 @@ class TaskRepository(private val taskDao: TaskDao) {
     suspend fun deleteTask(task: Task){
         taskDao.deleteTask(task)
     }
-    suspend fun getAllTask() : LiveData<List<Task>>
+    suspend fun getAllTask() : List<Task>
         = taskDao.getAllTask()
-    suspend fun getAllTaskOfProject(projectID : Int) : LiveData<List<Task>>
+    suspend fun getAllTaskOfProject(projectID : Int) : List<Task>
         = taskDao.getAllTaskOfProject(projectID)
     suspend fun getAllTaskWithState(state : String) : Int
         = taskDao.getAllTaskWithState(state)

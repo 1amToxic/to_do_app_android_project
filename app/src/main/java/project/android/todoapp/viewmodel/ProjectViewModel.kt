@@ -12,6 +12,11 @@ import project.android.todoapp.repository.ProjectRepository
 class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewModel() {
     private var listProjectM : MutableLiveData<List<Project>>? = null
     val listProject : LiveData<List<Project>> get() = listProjectM!!
+    private var projectNowM : MutableLiveData<Project>? = null
+    val projectNow : LiveData<Project> get() = projectNowM!!
+    fun setProjectNow(project: Project){
+        projectNowM?.postValue(project)
+    }
     fun insertProject(project : Project){
         viewModelScope.launch(Dispatchers.IO) {
             projectRepository.insertProject(project)

@@ -58,8 +58,8 @@ class MainFragment : Fragment() {
     }
 
     private fun setUI() {
-        taskViewModel.getAllTask()
-        taskViewModel.listAllTask.observe(viewLifecycleOwner, Observer {
+        taskViewModel.getAllTaskOfProject(1)
+        taskViewModel.listDisplay.observe(viewLifecycleOwner, Observer {
             Timber.d("Update View")
             adapterTask.submitList(it)
         })

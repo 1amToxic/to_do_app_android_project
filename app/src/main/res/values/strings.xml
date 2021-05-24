@@ -26,5 +26,6 @@
     <string name="deadline">Deadline</string>
     <string name="Yes">Yes</string>
     <string name="No">No</string>
+    <string name="text_add_project">Add Project</string>
 
 </resources>
