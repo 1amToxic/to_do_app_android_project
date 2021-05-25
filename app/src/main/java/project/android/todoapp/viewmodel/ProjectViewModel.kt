@@ -10,10 +10,10 @@ import project.android.todoapp.model.Project
 import project.android.todoapp.repository.ProjectRepository
 
 class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewModel() {
-    private var listProjectM : MutableLiveData<List<Project>>? = null
-    val listProject : LiveData<List<Project>> get() = listProjectM!!
-    private var projectNowM : MutableLiveData<Project>? = null
-    val projectNow : LiveData<Project> get() = projectNowM!!
+    private var listProjectM = MutableLiveData<List<Project>>()
+    val listProject : LiveData<List<Project>> get() = listProjectM
+    private var projectNowM = MutableLiveData<Project>()
+    val projectNow : LiveData<Project> get() = projectNowM
     fun setProjectNow(project: Project){
         projectNowM?.postValue(project)
     }
@@ -24,7 +24,12 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewM
     }
     fun getAllProject(){
         viewModelScope.launch(Dispatchers.IO) {
-            listProjectM?.postValue(projectRepository.getAllProject().value)
+            listProjectM.postValue(projectRepository.getAllProject().value)
+        }
+    }
+    fun getProjectById(idP : Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            projectNowM.postValue(projectRepository.getProjectById(idP))
         }
     }
 }

@@ -5,7 +5,7 @@ import project.android.todoapp.model.Tag
 import project.android.todoapp.model.TaskState
 import java.util.*
 
-class Converters {
+object Converters {
 
     @TypeConverter
     fun toTag(value: String) = enumValueOf<Tag>(value)

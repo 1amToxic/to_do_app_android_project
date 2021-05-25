@@ -3,12 +3,14 @@ package project.android.todoapp.ui.main.add_task
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +23,7 @@ import project.android.todoapp.databinding.FragmentAddTaskBinding
 import project.android.todoapp.model.Tag
 import project.android.todoapp.model.Task
 import project.android.todoapp.model.TaskState
+import project.android.todoapp.service.NotificationBuilder
 import project.android.todoapp.ui.main.add_task.adapter.TagAdapter
 import project.android.todoapp.utils.DateStringConverter
 import project.android.todoapp.viewmodel.TaskViewModel
@@ -47,6 +50,7 @@ class FragmentAddTask : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,6 +62,7 @@ class FragmentAddTask : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun setListeners() {
         binding.editAddTaskName.requestFocus()
         binding.editAddTaskDate.setOnClickListener {
@@ -65,16 +70,19 @@ class FragmentAddTask : Fragment() {
         }
         binding.fabAddTask.setOnClickListener {
             GlobalScope.launch(Dispatchers.IO) {
-                taskViewModel.insertTask(
-                    Task(
-                        0, binding.editAddTaskName.text.toString(),
-                        binding.editAddTaskDescription.text.toString(),
-                        TaskState.DOING,
-                        tag,
-                        1,
-                        DateStringConverter.stringToDate(binding.editAddTaskDate.text.toString())
-                    )
+                val task = Task(
+                    0, binding.editAddTaskName.text.toString(),
+                    binding.editAddTaskDescription.text.toString(),
+                    TaskState.DOING,
+                    tag,
+                    1,
+                    DateStringConverter.stringToDate(binding.editAddTaskDate.text.toString())
                 )
+                taskViewModel.insertTask(
+                    task
+                )
+                val notificationBuilder = NotificationBuilder(requireActivity().application)
+                notificationBuilder.createNotification(requireContext(),task)
                 withContext(Dispatchers.Main){
                     findNavController().navigateUp()
                 }

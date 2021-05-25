@@ -18,7 +18,9 @@ import project.android.todoapp.R
 import project.android.todoapp.ToDoApplication
 import project.android.todoapp.databinding.FragmentEditTaskBinding
 import project.android.todoapp.model.Tag
+import project.android.todoapp.model.Task
 import project.android.todoapp.ui.main.add_task.adapter.TagAdapter
+import project.android.todoapp.ui.main.main_screen.model.TaskUI
 import project.android.todoapp.utils.DateStringConverter
 import project.android.todoapp.viewmodel.TaskViewModel
 import project.android.todoapp.viewmodel.factory.TaskViewModelFactory
@@ -27,9 +29,9 @@ import java.util.*
 
 
 class EditTaskFragment : Fragment() {
-    private lateinit var binding : FragmentEditTaskBinding
-    private var tag = Tag.OTHER
-    private var textDateTime : String? = ""
+    private lateinit var binding: FragmentEditTaskBinding
+    private var tagEdit = Tag.OTHER
+    private var textDateTime: String? = ""
     private val taskViewModel: TaskViewModel by lazy {
         val app = ToDoApplication()
         val viewModelProviderFactory =
@@ -39,6 +41,7 @@ class EditTaskFragment : Fragment() {
             viewModelProviderFactory
         )[TaskViewModel::class.java]
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -49,7 +52,7 @@ class EditTaskFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentEditTaskBinding.inflate(inflater,container,false)
+        binding = FragmentEditTaskBinding.inflate(inflater, container, false)
         setListeners()
         initView()
         return binding.root
@@ -70,13 +73,13 @@ class EditTaskFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setTitle("Confirm Message")
             .setMessage("Do you want to save this task?")
-            .setPositiveButton(resources.getString(R.string.Yes)
+            .setPositiveButton(
+                resources.getString(R.string.Yes)
             ) { _, _ ->
                 updateData()
                 findNavController().navigateUp()
             }
-            .setNegativeButton(resources.getString(R.string.No)){
-                _,_ ->
+            .setNegativeButton(resources.getString(R.string.No)) { _, _ ->
                 /**
                  * Dismiss Alert Dialog
                  */
@@ -86,43 +89,62 @@ class EditTaskFragment : Fragment() {
     }
 
     private fun updateData() {
+        val taskEdit = Task(
+            taskViewModel.taskDetailDisplay.value!!.id,
+            binding.editTaskName.text.toString(),
+            binding.editTaskDescription.text.toString(),
+            taskViewModel.taskDetailDisplay.value!!.state,
+            tagEdit,
+            taskViewModel.taskDetailDisplay.value!!.projectId,
+            DateStringConverter.stringToDate(binding.editTaskDate.text.toString())
+        )
+        taskViewModel.updateTask(
+            taskEdit
+        )
+        taskViewModel.setTaskDetailDisplay(taskEdit)
     }
 
 
     private fun showDatePicker() {
         val now = Calendar.getInstance()
         Timber.d("DateTimeHere $now")
-        val datePickerDialog = DatePickerDialog(requireContext(),
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
             { _, year, month, dayOfMonth ->
                 textDateTime = "$year-$month-$dayOfMonth"
                 showTimePiker()
             },
-            now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1,now.get(Calendar.DAY_OF_MONTH))
+            now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH)
+        )
         datePickerDialog.show()
     }
-    private fun showTimePiker(){
+
+    private fun showTimePiker() {
         val now = Calendar.getInstance()
-        val timePickerDialog = TimePickerDialog(requireContext(),
+        val timePickerDialog = TimePickerDialog(
+            requireContext(),
             { _, hourOfDay, minute ->
                 textDateTime = "$textDateTime $hourOfDay:$minute"
                 binding.editTaskDate.setText(textDateTime)
             },
-            now.get(Calendar.HOUR_OF_DAY),now.get(Calendar.MINUTE),false)
+            now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), false
+        )
         timePickerDialog.show()
     }
 
-    private fun initView(){
+    private fun initView() {
         setAdaptersDropDown()
         taskViewModel.taskDetailDisplay.observe(viewLifecycleOwner, Observer {
             it.let {
                 binding.editTaskName.setText(it.title)
-                binding.editTaskDescription.setText(it.content)
-                binding.editTaskDate.setText(DateStringConverter.dateToString(it.date!!))
+                binding.editTaskDescription.setText(it.description)
+                binding.editTaskDate.setText(DateStringConverter.dateToString(it.deadline!!))
                 binding.layoutEditTaskTag.hint = it.tag.description
             }
         })
 
     }
+
     private fun setAdaptersDropDown() {
         val adapter = TagAdapter(
             requireContext(),
@@ -131,13 +153,11 @@ class EditTaskFragment : Fragment() {
         )
 
         binding.editTaskDropdown.setAdapter(adapter)
-        binding.editTaskDropdown.setOnItemClickListener { _, _, _, _ ->
-            binding.layoutEditTaskTag.hint = resources.getString(R.string.tag)
+        binding.editTaskDropdown.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
-                tag = enumValues<Tag>()[position]
+                tagEdit = enumValues<Tag>()[position]
+                binding.layoutEditTaskTag.hint = resources.getString(R.string.tag)
             }
-        }
-
     }
 
 }

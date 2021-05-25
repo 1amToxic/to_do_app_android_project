@@ -1,5 +1,6 @@
 package project.android.todoapp.ui.main
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -7,20 +8,38 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import project.android.todoapp.R
+import project.android.todoapp.ToDoApplication
 import project.android.todoapp.databinding.ActivityMainBinding
 import project.android.todoapp.ui.behavior.FloatingActionButtonScrollBehavior
 import project.android.todoapp.ui.main.detail.BottomNavigationDrawerFragment
+import project.android.todoapp.viewmodel.ProjectViewModel
+import project.android.todoapp.viewmodel.TaskViewModel
+import project.android.todoapp.viewmodel.factory.ProjectViewModelFactory
+import project.android.todoapp.viewmodel.factory.TaskViewModelFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment : NavHostFragment
     private lateinit var navController : NavController
+    private val projectViewModel: ProjectViewModel by lazy {
+        val app = ToDoApplication()
+        val viewModelProviderFactory =
+            ProjectViewModelFactory(app)
+        ViewModelProvider(
+            this,
+            viewModelProviderFactory
+        )[ProjectViewModel::class.java]
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val sharedPreference =  getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+        val projectId = sharedPreference.getInt("projectid",1)
+        projectViewModel.getProjectById(projectId)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         navHostFragment =
@@ -79,4 +98,5 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
     }
+
 }

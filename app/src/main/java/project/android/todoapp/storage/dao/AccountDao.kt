@@ -12,4 +12,5 @@ interface AccountDao {
     suspend fun insertAccount(account : Account)
     @Query("SELECT * FROM account WHERE email = :email AND password = :password")
     fun checkAccountAvailable(email : String, password : String) : Account?
+
 }

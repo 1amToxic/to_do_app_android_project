@@ -20,4 +20,5 @@ class ProjectRepository(val projectDao: ProjectDao) {
     }
 
     suspend fun getAllProject(): LiveData<List<Project>> = projectDao.getAllProject()
+    fun getProjectById(idP : Int) : Project = projectDao.getProjectById(idP)
 }

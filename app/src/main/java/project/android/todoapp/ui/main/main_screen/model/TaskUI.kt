@@ -10,5 +10,6 @@ data class TaskUI(
     val tag : Tag,
     val content : String,
     val status : TaskState,
-    val date : Date?
+    val date : Date?,
+    val projectId : Int
 )

@@ -52,9 +52,9 @@ class DetailFragment : Fragment() {
     private fun initView() {
         taskViewModel.taskDetailDisplay.observe(viewLifecycleOwner, Observer {
             it.let {
-                binding.textContentItemTaskDetail.text = it.content
+                binding.textContentItemTaskDetail.text = it.description
                 binding.textTaskTitleDetail.text = it.title
-                binding.textTimeItemTaskDetail.text = DateStringConverter.dateToString(it.date!!)
+                binding.textTimeItemTaskDetail.text = DateStringConverter.dateToString(it.deadline!!)
                 binding.taskTagColorDetail.setColorFilter(ContextCompat.getColor(requireContext(),it.tag.resId))
                 binding.taskTagDescriptionDetail.text = it.tag.description
             }

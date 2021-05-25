@@ -17,4 +17,8 @@ interface TaskDao {
     fun getAllTaskOfProject(projectID : Int) : List<Task>
     @Query("SELECT COUNT(id) FROM task WHERE state = :state")
     suspend fun getAllTaskWithState(state : String) : Int
+    @Query("SELECT * FROM task WHERE project_id = :projectID order by title")
+    fun getAllTaskOfProjectSortByName(projectID : Int) : List<Task>
+    @Query("SELECT * FROM task WHERE project_id = :projectID order by deadline")
+    fun getAllTaskOfProjectSortByDeadline(projectID : Int) : List<Task>
 }
