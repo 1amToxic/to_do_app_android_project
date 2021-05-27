@@ -14,16 +14,24 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import project.android.todoapp.R
 import project.android.todoapp.ToDoApplication
 import project.android.todoapp.databinding.FragmentEditTaskBinding
 import project.android.todoapp.model.Tag
 import project.android.todoapp.model.Task
+import project.android.todoapp.storage.dao.remote.RemoteService
+import project.android.todoapp.storage.dao.remote.ServiceBuilder
 import project.android.todoapp.ui.main.add_task.adapter.TagAdapter
 import project.android.todoapp.ui.main.main_screen.model.TaskUI
 import project.android.todoapp.utils.DateStringConverter
 import project.android.todoapp.viewmodel.TaskViewModel
 import project.android.todoapp.viewmodel.factory.TaskViewModelFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import timber.log.Timber
 import java.util.*
 
@@ -101,7 +109,27 @@ class EditTaskFragment : Fragment() {
         taskViewModel.updateTask(
             taskEdit
         )
+        callService(taskEdit)
         taskViewModel.setTaskDetailDisplay(taskEdit)
+    }
+
+    private fun callService(taskEdit: Task) {
+        val request = ServiceBuilder.buildService(RemoteService::class.java)
+        GlobalScope.launch(Dispatchers.IO) {
+            val call = request.editTask(taskEdit.id,taskEdit)
+
+            call.enqueue(object : Callback<Task> {
+                override fun onResponse(call: Call<Task>, response: Response<Task>) {
+                    Timber.d("Push Good")
+                }
+
+                override fun onFailure(call: Call<Task>, t: Throwable) {
+                    Timber.d("Push Failed")
+                }
+
+
+            })
+        }
     }
 
 

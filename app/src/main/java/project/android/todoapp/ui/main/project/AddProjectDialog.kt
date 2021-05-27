@@ -5,17 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import project.android.todoapp.R
 import project.android.todoapp.ToDoApplication
 import project.android.todoapp.databinding.FragmentAddProjectBinding
+import project.android.todoapp.model.Account
 import project.android.todoapp.model.Project
 import project.android.todoapp.repository.ProjectRepository
+import project.android.todoapp.storage.dao.remote.RemoteService
+import project.android.todoapp.storage.dao.remote.ServiceBuilder
 import project.android.todoapp.viewmodel.ProjectViewModel
 import project.android.todoapp.viewmodel.TaskViewModel
 import project.android.todoapp.viewmodel.factory.ProjectViewModelFactory
 import project.android.todoapp.viewmodel.factory.TaskViewModelFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import timber.log.Timber
 
 class AddProjectDialog : DialogFragment() {
     private lateinit var binding: FragmentAddProjectBinding
@@ -65,6 +76,20 @@ class AddProjectDialog : DialogFragment() {
                 binding.editAddTaskDescription.text.toString()
             )
             projectViewModel.insertProject(project)
+            val request = ServiceBuilder.buildService(RemoteService::class.java)
+            GlobalScope.launch(Dispatchers.IO) {
+                val call = request.addProject(project)
+
+                call.enqueue(object : Callback<Project> {
+                    override fun onResponse(call: Call<Project>, response: Response<Project>) {
+                    }
+
+                    override fun onFailure(call: Call<Project>, t: Throwable) {
+                    }
+
+
+                })
+            }
             dismiss()
         }
     }

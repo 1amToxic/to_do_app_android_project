@@ -78,9 +78,6 @@ class MainFragment : Fragment() {
     }
 
     private fun setBehaviors() {
-//        val p : CoordinatorLayout.LayoutParams = binding.btnAddTask.layoutParams as CoordinatorLayout.LayoutParams
-//        p.behavior = context?.let { FloatingActionButtonScrollBehavior(it) }
-//        binding.btnAddTask.layoutParams = p
     }
 
     private fun setUI() {

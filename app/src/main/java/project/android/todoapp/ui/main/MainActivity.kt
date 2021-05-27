@@ -1,12 +1,14 @@
 package project.android.todoapp.ui.main
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -19,12 +21,21 @@ import kotlinx.coroutines.withContext
 import project.android.todoapp.R
 import project.android.todoapp.ToDoApplication
 import project.android.todoapp.databinding.ActivityMainBinding
+import project.android.todoapp.model.Account
+import project.android.todoapp.model.Project
+import project.android.todoapp.model.Task
+import project.android.todoapp.storage.dao.remote.RemoteService
+import project.android.todoapp.storage.dao.remote.ServiceBuilder
 import project.android.todoapp.ui.behavior.FloatingActionButtonScrollBehavior
 import project.android.todoapp.ui.main.detail.BottomNavigationDrawerFragment
 import project.android.todoapp.viewmodel.ProjectViewModel
 import project.android.todoapp.viewmodel.TaskViewModel
 import project.android.todoapp.viewmodel.factory.ProjectViewModelFactory
 import project.android.todoapp.viewmodel.factory.TaskViewModelFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -39,10 +50,12 @@ class MainActivity : AppCompatActivity() {
             viewModelProviderFactory
         )[ProjectViewModel::class.java]
     }
+    lateinit var sharedPreference : SharedPreferences
+    var projectId : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sharedPreference =  getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
-        val projectId = sharedPreference.getInt("projectid",1)
+        sharedPreference =  getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+        projectId = sharedPreference.getInt("projectid",1)
         projectViewModel.getProjectById(projectId)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -54,6 +67,58 @@ class MainActivity : AppCompatActivity() {
         setNavigation()
         setListeners()
         loadData()
+        callService()
+    }
+
+    private fun callService() {
+        val request = ServiceBuilder.buildService(RemoteService::class.java)
+        GlobalScope.launch(Dispatchers.IO) {
+            val call = request.getAllAccount()
+
+            call.enqueue(object : Callback<List<Account>> {
+                override fun onResponse(
+                    call: Call<List<Account>>,
+                    response: Response<List<Account>>
+                ) {
+                    val listAcc = response.body()
+                    Timber.d("This is list Acc $listAcc")
+                }
+
+                override fun onFailure(call: Call<List<Account>>, t: Throwable) {
+                    Toast.makeText(this@MainActivity,"Can not connect to Internet",Toast.LENGTH_SHORT).show()
+                }
+
+            })
+        }
+        GlobalScope.launch(Dispatchers.IO) {
+            val call = request.getAllProject()
+
+            call.enqueue(object : Callback<List<Project>> {
+                override fun onResponse(
+                    call: Call<List<Project>>,
+                    response: Response<List<Project>>
+                ) {
+                }
+
+                override fun onFailure(call: Call<List<Project>>, t: Throwable) {
+                }
+
+
+            })
+        }
+        GlobalScope.launch(Dispatchers.IO) {
+            val call = request.getAllTaskOfProject(projectId)
+
+            call.enqueue(object : Callback<List<Task>> {
+                override fun onResponse(call: Call<List<Task>>, response: Response<List<Task>>) {
+                }
+
+                override fun onFailure(call: Call<List<Task>>, t: Throwable) {
+                }
+
+
+            })
+        }
     }
 
     private fun loadData() {

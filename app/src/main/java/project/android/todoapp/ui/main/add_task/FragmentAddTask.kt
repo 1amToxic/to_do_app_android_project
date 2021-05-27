@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -20,14 +21,20 @@ import kotlinx.coroutines.withContext
 import project.android.todoapp.R
 import project.android.todoapp.ToDoApplication
 import project.android.todoapp.databinding.FragmentAddTaskBinding
+import project.android.todoapp.model.Account
 import project.android.todoapp.model.Tag
 import project.android.todoapp.model.Task
 import project.android.todoapp.model.TaskState
 import project.android.todoapp.service.NotificationBuilder
+import project.android.todoapp.storage.dao.remote.RemoteService
+import project.android.todoapp.storage.dao.remote.ServiceBuilder
 import project.android.todoapp.ui.main.add_task.adapter.TagAdapter
 import project.android.todoapp.utils.DateStringConverter
 import project.android.todoapp.viewmodel.TaskViewModel
 import project.android.todoapp.viewmodel.factory.TaskViewModelFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import timber.log.Timber
 import java.util.*
 
@@ -81,6 +88,7 @@ class FragmentAddTask : Fragment() {
                 taskViewModel.insertTask(
                     task
                 )
+                callService(task)
 
                 withContext(Dispatchers.Main){
                     findNavController().navigateUp()
@@ -89,6 +97,25 @@ class FragmentAddTask : Fragment() {
                     notificationBuilder.createNotification(requireContext(),task)
                 }
             }
+        }
+    }
+
+    private fun callService(task: Task) {
+        val request = ServiceBuilder.buildService(RemoteService::class.java)
+        GlobalScope.launch(Dispatchers.IO) {
+            val call = request.addTask(task)
+
+            call.enqueue(object : Callback<Task> {
+                override fun onResponse(call: Call<Task>, response: Response<Task>) {
+                    Timber.d("Push Good")
+                }
+
+                override fun onFailure(call: Call<Task>, t: Throwable) {
+                    Timber.d("Push Failed")
+                }
+
+
+            })
         }
     }
 
