@@ -27,7 +27,6 @@ open class SwipeToDeleteCallback(
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        TODO("Not yet implemented")
     }
 
 
@@ -58,8 +57,8 @@ open class SwipeToDeleteCallback(
         // Calculate position of delete icon
         val deleteIconTop = itemView.top + (itemHeight - intrinsicHeight!!) / 2
         val deleteIconMargin = (itemHeight - intrinsicHeight) / 2
-        val deleteIconLeft = itemView.right - deleteIconMargin - intrinsicWidth!!
-        val deleteIconRight = itemView.right - deleteIconMargin
+        val deleteIconLeft = itemView.left + deleteIconMargin
+        val deleteIconRight = itemView.left + deleteIconMargin + intrinsicWidth!!
         val deleteIconBottom = deleteIconTop + intrinsicHeight
         // Draw the delete icon
         deleteIcon?.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)

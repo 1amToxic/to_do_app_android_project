@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_fileName="anim_greeting.json"
-        app:lottie_loop="true" />
+        app:lottie_loop="false" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_email_login"

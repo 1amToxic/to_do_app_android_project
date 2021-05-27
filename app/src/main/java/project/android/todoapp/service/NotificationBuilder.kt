@@ -53,9 +53,10 @@ class NotificationBuilder(private val application: Application){
     fun createNotification(context: Context, task : Task) {
 
         val intentSchedule = Intent(context,AlarmReceiver::class.java)
-        val bundle = Bundle()
-        bundle.putSerializable("task",task)
-        intentSchedule.putExtras(bundle)
+//        val bundle = Bundle()
+//        bundle.putSerializable("task",task)
+        intentSchedule.putExtra("title", task.title)
+        intentSchedule.putExtra("des", task.description)
         val pendingSchedule = PendingIntent.getBroadcast(context,43,intentSchedule,PendingIntent.FLAG_UPDATE_CURRENT)
         val manager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         Converters.dateToTimestamp(task.deadline)?.let {

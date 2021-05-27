@@ -9,6 +9,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import project.android.todoapp.R
+import project.android.todoapp.model.Task
 import project.android.todoapp.ui.main.MainActivity
 
 class AlarmReceiver: BroadcastReceiver() {
@@ -18,17 +19,20 @@ class AlarmReceiver: BroadcastReceiver() {
     }
     override fun onReceive(context: Context, intent: Intent) {
         // sendNotification
-        val intent = Intent(context, MainActivity::class.java).apply {
+//        val bundle = intent.extras
+        val title : String? = intent.getStringExtra("title")
+        val des : String? = intent.getStringExtra("des")
+        val intentForward = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intentForward, 0)
         val builder = NotificationCompat.Builder(context, CHANNEL_CODE)
             .setSmallIcon(R.mipmap.ic_launcher_round)
-            .setContentTitle("title")
-            .setContentText("notification content")
+            .setContentTitle(title)
+            .setContentText(des)
             .setStyle(
                 NotificationCompat.BigTextStyle()
-                    .bigText("long notification content")
+                    .bigText("ToDoForDev")
             )
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)

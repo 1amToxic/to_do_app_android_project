@@ -24,7 +24,7 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewM
     }
     fun getAllProject(){
         viewModelScope.launch(Dispatchers.IO) {
-            listProjectM.postValue(projectRepository.getAllProject().value)
+            listProjectM.postValue(projectRepository.getAllProject())
         }
     }
     fun getProjectById(idP : Int){

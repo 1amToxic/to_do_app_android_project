@@ -63,18 +63,6 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
                 taskRepository.getAllTaskOfProject(1)
             )
         }
-//        Timber.d("Go Here ${listAllTask.value == null}")
-//        listAllTaskM.postValue(mutableListOf(
-//            TaskUI(1,"Code Complete ToDoApp",Tag.KOTLIN_NATIVE,"Android Code", TaskState.DONE,Date()),
-//            TaskUI(2,"Code Complete ToDoApp",Tag.KOTLIN_JS,"Android Code", TaskState.DONE,Date()),
-//            TaskUI(3,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
-//            TaskUI(4,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
-//            TaskUI(5,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
-//            TaskUI(6,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
-//            TaskUI(7,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
-//            TaskUI(8,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date()),
-//            TaskUI(79,"Code Complete ToDoApp",Tag.JETPACK,"Android Code", TaskState.DONE,Date())
-//        ))
         listDisplayM.postValue(listAllTask.value)
     }
 
@@ -90,7 +78,9 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
             val taskDone = taskRepository.getAllTaskWithState("DONE")
             withContext(Dispatchers.Main) {
                 Timber.d("Task Done $taskDone")
-                numberTaskCompleteM.postValue((taskDone*100)/ listDisplayM.value!!.size)
+                if (listDisplayM.value!!.isNotEmpty()) {
+                    numberTaskCompleteM.postValue((taskDone * 100) / listDisplayM.value!!.size)
+                }
             }
         }
     }

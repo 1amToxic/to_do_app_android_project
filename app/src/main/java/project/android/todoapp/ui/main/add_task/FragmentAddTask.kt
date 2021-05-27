@@ -81,10 +81,12 @@ class FragmentAddTask : Fragment() {
                 taskViewModel.insertTask(
                     task
                 )
-                val notificationBuilder = NotificationBuilder(requireActivity().application)
-                notificationBuilder.createNotification(requireContext(),task)
+
                 withContext(Dispatchers.Main){
                     findNavController().navigateUp()
+                    val notificationBuilder = NotificationBuilder(requireActivity().application)
+                    Timber.d("LogTask $task")
+                    notificationBuilder.createNotification(requireContext(),task)
                 }
             }
         }

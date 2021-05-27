@@ -24,6 +24,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_mainFragment_to_allProjectFragment"
+            app:destination="@id/allProjectFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentAddTask"
@@ -48,4 +51,9 @@
         android:name="project.android.todoapp.ui.main.edit_task.EditTaskFragment"
         android:label="fragment_edit_task"
         tools:layout="@layout/fragment_edit_task" />
+    <fragment
+        android:id="@+id/allProjectFragment"
+        android:name="project.android.todoapp.ui.main.project.AllProjectFragment"
+        android:label="fragment_all_project"
+        tools:layout="@layout/fragment_all_project" />
 </navigation>

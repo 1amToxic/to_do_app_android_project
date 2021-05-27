@@ -31,17 +31,13 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
             run {
                 when (menuItem.itemId) {
                     R.id.nav_add_project -> {
-//                        requireActivity().findNavController(R.id.nav_host_fragment_main).navigate(R.id.action_mainFragment_to_fragmentAddTask)
-//                        val fm = requireActivity().supportFragmentManager
-//                        val addProjectFragment = AddProjectFragment()
-//                        addProjectFragment.show(fm,"add_project_fragment")
                         AddProjectDialog.newInstance().show(requireActivity().supportFragmentManager,AddProjectDialog.TAG)
                     }
                     R.id.nav_all_project -> {
-                        Timber.d("UI Log All")
+                        requireActivity().findNavController(R.id.nav_host_fragment_main).navigate(R.id.action_mainFragment_to_allProjectFragment)
                     }
                     R.id.nav_show_timeline -> {
-                        Timber.d("UI Log Show")
+//                        Timber.d("UI Log Show")
                     }
                 }
                 dismiss()

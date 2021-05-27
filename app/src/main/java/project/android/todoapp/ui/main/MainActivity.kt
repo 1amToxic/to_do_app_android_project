@@ -12,6 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import project.android.todoapp.R
 import project.android.todoapp.ToDoApplication
 import project.android.todoapp.databinding.ActivityMainBinding
@@ -49,7 +53,13 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.bottomAppBar)
         setNavigation()
         setListeners()
+        loadData()
+    }
 
+    private fun loadData() {
+        GlobalScope.launch(Dispatchers.IO) {
+            projectViewModel.getAllProject()
+        }
     }
 
     private fun setBehaviors() {
@@ -94,9 +104,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return true
-    }
-    override fun onBackPressed() {
-        super.onBackPressed()
     }
 
 }
